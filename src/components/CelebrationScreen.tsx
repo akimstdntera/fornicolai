@@ -68,13 +68,13 @@ const CelebrationScreen = () => {
 
         {/* Message */}
         <h1 className="font-display text-3xl md:text-5xl lg:text-6xl text-foreground mb-3 font-bold">
-          Yay! 🎉
+          BANG!! 
         </h1>
         <h2 className="font-display text-xl md:text-3xl lg:text-4xl text-primary mb-4 italic">
-          You made me the happiest person!
+          YARI KA SAKIN SA 14!!
         </h2>
         <p className="text-muted-foreground text-lg md:text-xl max-w-md mx-auto leading-relaxed mb-6">
-          I knew you'd say yes! 💕
+          Mag ready kana nicolai..
         </p>
       </div>
 
@@ -96,14 +96,14 @@ const CelebrationScreen = () => {
         }`}
       >
         <p className="text-primary font-display text-xl md:text-2xl italic">
-          Can't wait to make more memories with you! 💕
+         To more chicken this year!!
         </p>
       </div>
 
       {/* Bottom decoration */}
       <div className="mt-auto pt-8 text-center">
         <p className="text-muted-foreground/60 text-sm">
-          Made with 💖 just for you
+          Made for you baby! love u
         </p>
       </div>
     </div>

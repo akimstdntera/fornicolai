@@ -272,3 +272,63 @@ All colors MUST be HSL.
     hsl(var(--pink-deep)) 100%
   );
 }
+
+/* Film strip texture helpers */
+.film-grain {
+  position: relative;
+  isolation: isolate;
+}
+
+.film-pink-stock {
+  background-image:
+    radial-gradient(120% 80% at 50% 0%, hsl(var(--pink-medium) / 0.45) 0%, rgba(0, 0, 0, 0) 62%),
+    radial-gradient(120% 90% at 50% 100%, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 60%),
+    linear-gradient(
+      180deg,
+      hsl(var(--pink-deep) / 0.90) 0%,
+      hsl(var(--rose) / 0.65) 45%,
+      hsl(var(--pink-deep) / 0.90) 100%
+    );
+}
+
+.film-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.06) 0px,
+      rgba(255, 255, 255, 0.06) 1px,
+      rgba(0, 0, 0, 0) 4px,
+      rgba(0, 0, 0, 0) 10px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.03) 0px,
+      rgba(255, 255, 255, 0.03) 1px,
+      rgba(0, 0, 0, 0) 3px,
+      rgba(0, 0, 0, 0) 9px
+    );
+}
+
+.film-scratches {
+  background-image:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0) 35%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.05) 0px,
+      rgba(255, 255, 255, 0.05) 1px,
+      rgba(255, 255, 255, 0) 14px,
+      rgba(255, 255, 255, 0) 22px
+    );
+  mix-blend-mode: overlay;
+}
+
+.film-scratches-pink {
+  filter: hue-rotate(-15deg) saturate(1.35);
+}

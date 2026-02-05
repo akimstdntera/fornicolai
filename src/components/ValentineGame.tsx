@@ -13,18 +13,18 @@ const ValentineGame = () => {
   const yesButtonSize = Math.min(1 + noCount * 0.2, 2.5);
 
   const phrases = [
-    "No 😢",
-    "Are you sure? 🥺",
-    "Really sure? 😭",
-    "Please? 💔",
-    "Pretty please? 🙏",
-    "With a cherry on top? 🍒",
-    "I'll be sad... 😿",
-    "Think again! 💭",
-    "Last chance! 💕",
-    "You're breaking my heart! 💔",
-    "Okay fine... jk! 😜",
-    "Catch me if you can! 🏃‍♀️",
+    "No",
+    "anong no??????!!",
+    "kulit be, talagang mag no kapa ha",
+    "ayan yung yes oh",
+    "ehhh hindi mo na siguro ko love!",
+    "Isa!!",
+    "Nicolai ayusin mo, yes kasi",
+    "luh parang di shota?",
+    "bawal no oki?",
+    "TALAGANG UMABOT KA PA DITO",
+    "BLEHHH DI MO MACLICLICK TO",
+    "Cmon, click yes",
   ];
 
   const getNoButtonText = () => {
@@ -83,7 +83,7 @@ const ValentineGame = () => {
 
       {/* Question */}
       <h1 className="font-display text-3xl md:text-5xl lg:text-6xl text-center mb-4 text-foreground tracking-tight">
-        Will you be my
+        Can I be your
       </h1>
       <h2 className="font-display text-4xl md:text-6xl lg:text-7xl text-center mb-12 text-primary font-bold italic">
         Valentine?
@@ -91,7 +91,7 @@ const ValentineGame = () => {
 
       {/* Subtitle */}
       <p className="text-muted-foreground text-lg md:text-xl mb-10 text-center max-w-md">
-        I've been waiting to ask you this... 💕
+        Don’t laugh, but…
       </p>
 
       {/* Buttons Container */}
@@ -104,7 +104,7 @@ const ValentineGame = () => {
             transform: `scale(${yesButtonSize})`,
           }}
         >
-          Yes! 💖
+          Yes! 
         </Button>
 
         {/* No Button */}
@@ -133,8 +133,8 @@ const ValentineGame = () => {
       {noCount > 2 && (
         <p className="mt-12 text-muted-foreground text-sm animate-fade-in text-center">
           {noCount > 5
-            ? "Give up already! The No button doesn't want to be clicked! 💕"
-            : "The No button seems to be running away... maybe it's a sign? 😉"}
+            ? "Give up na be, click yes na lang "
+            : "Hindi mo macliclick yan blehh..."}
         </p>
       )}
     </div>
