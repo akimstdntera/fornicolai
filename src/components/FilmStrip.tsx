@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 // Placeholder photos - replace these URLs with your actual couple photos
 const photos = [
@@ -10,8 +10,13 @@ const photos = [
   { id: 6, caption: "Forever & always 💞" },
 ];
 
+// Duplicate for seamless loop
+const allPhotos = [...photos, ...photos];
+
 const FilmStrip = () => {
   const [visiblePhotos, setVisiblePhotos] = useState<number[]>([]);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const stripRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Animate photos appearing one by one
@@ -20,6 +25,11 @@ const FilmStrip = () => {
         setVisiblePhotos((prev) => [...prev, index]);
       }, index * 300);
     });
+
+    // Start rolling animation after all photos appear
+    setTimeout(() => {
+      setIsAnimating(true);
+    }, photos.length * 300 + 500);
   }, []);
 
   return (
@@ -35,19 +45,22 @@ const FilmStrip = () => {
       </div>
 
       {/* Film strip container */}
-      <div className="relative overflow-x-auto pb-4 scrollbar-hide">
-        <div className="flex gap-4 px-4 md:px-8 min-w-max md:justify-center">
-          {photos.map((photo, index) => (
+      <div className="relative overflow-hidden pb-4">
+        <div
+          ref={stripRef}
+          className={`flex gap-6 px-4 ${isAnimating ? "animate-film-roll" : ""}`}
+          style={{
+            width: "fit-content",
+          }}
+        >
+          {allPhotos.map((photo, index) => (
             <div
-              key={photo.id}
+              key={`${photo.id}-${index}`}
               className={`film-frame transition-all duration-500 ${
-                visiblePhotos.includes(index)
+                visiblePhotos.includes(index % photos.length)
                   ? "opacity-100 transform translate-y-0 scale-100"
                   : "opacity-0 transform translate-y-8 scale-95"
               }`}
-              style={{
-                transitionDelay: `${index * 100}ms`,
-              }}
             >
               {/* Film frame */}
               <div className="relative bg-foreground/90 p-2 rounded-sm shadow-xl">
@@ -67,7 +80,7 @@ const FilmStrip = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-valentine-soft via-valentine-blush to-valentine-medium opacity-60" />
                   <div className="relative z-10 text-center p-3">
                     <span className="text-4xl md:text-5xl mb-2 block">
-                      {["💑", "💏", "🥰", "😍", "💕", "❤️"][index]}
+                      {["💑", "💏", "🥰", "😍", "💕", "❤️"][index % photos.length]}
                     </span>
                     <p className="text-foreground/80 text-xs font-medium mt-2">
                       Add your photo here
@@ -97,11 +110,6 @@ const FilmStrip = () => {
           ))}
         </div>
       </div>
-
-      {/* Scroll hint on mobile */}
-      <p className="text-center text-muted-foreground/50 text-xs mt-2 md:hidden">
-        ← Swipe to see more →
-      </p>
     </div>
   );
 };
