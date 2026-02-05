@@ -1,29 +1,31 @@
 import { useEffect, useState, useRef } from "react";
 
 // Placeholder photos - replace these URLs with your actual couple photos
+const baseUrl = import.meta.env.BASE_URL;
+
 const photos = [
   // Option A (recommended): put files in /public/photos and use paths like "/photos/01.jpg"
   // Option B: use any full URL (https://...) if you host images elsewhere
-  { id: 1, caption: "First Photobooth", src: "/photos/01.jpg" },
-  { id: 2, caption: "First Monthsary", src: "/photos/02.jpg" },
-  { id: 3, caption: "First Valentines", src: "/photos/03.jpg" },
-  { id: 4, caption: "My Birthday", src: "/photos/04.jpg" },
-  { id: 5, caption: "Your Birthday", src: "/photos/05.jpg" },
-  { id: 6, caption: "Laguna", src: "/photos/06.jpg" },
-  { id: 7, caption: "UPLB date", src: "/photos/07.jpg" },
-  { id: 8, caption: "Fave Digi Pic", src: "/photos/08.jpg" },
-  { id: 9, caption: "Movie Night", src: "/photos/09.jpg" },
-  { id: 10, caption: "Look like a Happy Married Couple", src: "/photos/10.jpg" },
-  { id: 11, caption: "Chickchicken all time fave", src: "/photos/11.jpg" },
-  { id: 12, caption: "Night dates", src: "/photos/12.jpg" },
-  { id: 13, caption: "Pretty AF!", src: "/photos/13.jpg" },
-  { id: 14, caption: "Fave Pic", src: "/photos/14.jpg" },
-  { id: 15, caption: "First Pride Walk", src: "/photos/15.jpg" },
-  { id: 16, caption: "Random Trips", src: "/photos/16.jpg" },
-  { id: 17, caption: "Holloween", src: "/photos/17.jpg" },
-  { id: 18, caption: "First long trip", src: "/photos/18.jpg" },
-    { id: 19, caption: "Latest Date", src: "/photos/19.jpg" },
-  { id: 20, caption: "Latest Photobooth", src: "/photos/20.jpg" },
+  { id: 1, caption: "First Photobooth", src: `${baseUrl}photos/01.jpg` },
+  { id: 2, caption: "First Monthsary", src: `${baseUrl}photos/02.jpg` },
+  { id: 3, caption: "First Valentines", src: `${baseUrl}photos/03.jpg` },
+  { id: 4, caption: "My Birthday", src: `${baseUrl}photos/04.jpg` },
+  { id: 5, caption: "Your Birthday", src: `${baseUrl}photos/05.jpg` },
+  { id: 6, caption: "Laguna", src: `${baseUrl}photos/06.jpg` },
+  { id: 7, caption: "UPLB date", src: `${baseUrl}photos/07.jpg` },
+  { id: 8, caption: "Fave Digi Pic", src: `${baseUrl}photos/08.jpg` },
+  { id: 9, caption: "Movie Night", src: `${baseUrl}photos/09.jpg` },
+  { id: 10, caption: "Look like a Happy Married Couple", src: `${baseUrl}photos/10.jpg` },
+  { id: 11, caption: "Chickchicken all time fave", src: `${baseUrl}photos/11.jpg` },
+  { id: 12, caption: "Night dates", src: `${baseUrl}photos/12.jpg` },
+  { id: 13, caption: "Pretty AF!", src: `${baseUrl}photos/13.jpg` },
+  { id: 14, caption: "Fave Pic", src: `${baseUrl}photos/14.jpg` },
+  { id: 15, caption: "First Pride Walk", src: `${baseUrl}photos/15.jpg` },
+  { id: 16, caption: "Random Trips", src: `${baseUrl}photos/16.jpg` },
+  { id: 17, caption: "Holloween", src: `${baseUrl}photos/17.jpg` },
+  { id: 18, caption: "First long trip", src: `${baseUrl}photos/18.jpg` },
+  { id: 19, caption: "Latest Date", src: `${baseUrl}photos/19.jpg` },
+  { id: 20, caption: "Latest Photobooth", src: `${baseUrl}photos/20.jpg` },
 ];
 
 // Duplicate for seamless loop
