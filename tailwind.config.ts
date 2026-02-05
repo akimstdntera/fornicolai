@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        display: ["Georgia", "serif"],
+        body: ["system-ui", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -56,6 +60,14 @@ export default {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
+        },
+        valentine: {
+          soft: "hsl(var(--pink-soft))",
+          medium: "hsl(var(--pink-medium))",
+          deep: "hsl(var(--pink-deep))",
+          rose: "hsl(var(--rose))",
+          blush: "hsl(var(--blush))",
+          cream: "hsl(var(--cream))",
         },
       },
       borderRadius: {
