@@ -13,7 +13,17 @@
     <meta property="og:title" content="For Nicolai" />
     <meta property="og:description" content="To my nicolai" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="public/photos/11.jpg" />
+    <meta property="og:image" content="%BASE_URL%photos/11.jpg" />
+
+    <script>
+      (function () {
+        const redirect = sessionStorage.getItem("spa:redirect");
+        if (redirect) {
+          sessionStorage.removeItem("spa:redirect");
+          history.replaceState(null, "", redirect);
+        }
+      })();
+    </script>
 
     <!-- <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@Lovable" />

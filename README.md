@@ -64,6 +64,23 @@ This project is built with:
 
 Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
 
+### Deploy to GitHub Pages (free)
+
+This repo is a Vite + React SPA. GitHub Pages serves it from a sub-path like `/<repo>/`, so the project includes:
+
+- a GitHub Actions workflow at `.github/workflows/deploy-pages.yml`
+- a Vite `base` config + React Router `basename`
+- a `public/404.html` redirect so SPA routes work on refresh
+
+Steps:
+
+1. Push the repo to GitHub (default branch: `main`).
+2. In GitHub: **Settings → Pages → Build and deployment → Source** = **GitHub Actions**.
+3. Push any commit to `main` (or run the workflow manually).
+4. Your site will be available at `https://<your-user>.github.io/<your-repo>/`.
+
+If you are deploying a *user/organization* site (no `/<repo>/` path), edit the workflow and set `VITE_BASE` to `/`.
+
 ## Can I connect a custom domain to my Lovable project?
 
 Yes, you can!
