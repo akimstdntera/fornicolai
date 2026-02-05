@@ -197,6 +197,15 @@ All colors MUST be HSL.
   }
 }
 
+@keyframes film-roll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
@@ -223,6 +232,14 @@ All colors MUST be HSL.
 
 .animate-celebration {
   animation: celebration 0.6s ease-out forwards;
+}
+
+.animate-film-roll {
+  animation: film-roll 20s linear infinite;
+}
+
+.animate-film-roll:hover {
+  animation-play-state: paused;
 }
 
 /* Scrollbar hide utility */
