@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import FilmStrip from "./FilmStrip";
 
 interface Confetti {
   id: number;
@@ -11,29 +12,31 @@ interface Confetti {
 const CelebrationScreen = () => {
   const [confetti, setConfetti] = useState<Confetti[]>([]);
   const [showMessage, setShowMessage] = useState(false);
+  const [showFilm, setShowFilm] = useState(false);
 
   const emojis = ["💕", "💖", "💗", "💓", "💞", "💝", "🌹", "✨", "🎀", "💐"];
 
   useEffect(() => {
     const newConfetti: Confetti[] = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 40; i++) {
       newConfetti.push({
         id: i,
         left: Math.random() * 100,
         delay: Math.random() * 2,
-        duration: 3 + Math.random() * 4,
+        duration: 4 + Math.random() * 5,
         emoji: emojis[Math.floor(Math.random() * emojis.length)],
       });
     }
     setConfetti(newConfetti);
 
-    setTimeout(() => setShowMessage(true), 500);
+    setTimeout(() => setShowMessage(true), 400);
+    setTimeout(() => setShowFilm(true), 1000);
   }, []);
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden">
+    <div className="relative flex flex-col items-center justify-start min-h-screen overflow-x-hidden overflow-y-auto py-8">
       {/* Confetti */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         {confetti.map((item) => (
           <div
             key={item.id}
@@ -52,59 +55,53 @@ const CelebrationScreen = () => {
 
       {/* Main content */}
       <div
-        className={`text-center z-10 px-4 transition-all duration-1000 ${
+        className={`text-center z-10 px-4 transition-all duration-700 ${
           showMessage
             ? "opacity-100 transform translate-y-0"
             : "opacity-0 transform translate-y-10"
         }`}
       >
         {/* Big heart */}
-        <div className="animate-celebration mb-8">
-          <span className="text-9xl md:text-[12rem] drop-shadow-2xl">💖</span>
+        <div className="animate-celebration mb-4">
+          <span className="text-7xl md:text-8xl drop-shadow-2xl">💖</span>
         </div>
 
         {/* Message */}
-        <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-foreground mb-6 font-bold">
+        <h1 className="font-display text-3xl md:text-5xl lg:text-6xl text-foreground mb-3 font-bold">
           Yay! 🎉
         </h1>
-        <h2 className="font-display text-2xl md:text-4xl lg:text-5xl text-primary mb-8 italic">
+        <h2 className="font-display text-xl md:text-3xl lg:text-4xl text-primary mb-4 italic">
           You made me the happiest person!
         </h2>
-        <p className="text-muted-foreground text-xl md:text-2xl max-w-lg mx-auto leading-relaxed">
+        <p className="text-muted-foreground text-lg md:text-xl max-w-md mx-auto leading-relaxed mb-6">
           I knew you'd say yes! 💕
-          <br />
-          <span className="text-primary font-medium">
-            Can't wait to spend Valentine's Day with you!
-          </span>
         </p>
+      </div>
 
-        {/* Floating hearts around the message */}
-        <div className="absolute -z-10 inset-0 flex items-center justify-center">
-          <div className="animate-float" style={{ animationDelay: "0s" }}>
-            <span className="absolute -top-20 -left-20 text-5xl opacity-60">
-              💗
-            </span>
-          </div>
-          <div className="animate-float" style={{ animationDelay: "0.5s" }}>
-            <span className="absolute -top-10 right-0 text-4xl opacity-50">
-              💞
-            </span>
-          </div>
-          <div className="animate-float" style={{ animationDelay: "1s" }}>
-            <span className="absolute bottom-0 -left-10 text-6xl opacity-40">
-              💓
-            </span>
-          </div>
-          <div className="animate-float" style={{ animationDelay: "1.5s" }}>
-            <span className="absolute -bottom-20 right-10 text-5xl opacity-50">
-              💕
-            </span>
-          </div>
-        </div>
+      {/* Film Strip */}
+      <div
+        className={`w-full z-10 transition-all duration-1000 ${
+          showFilm
+            ? "opacity-100 transform translate-y-0"
+            : "opacity-0 transform translate-y-20"
+        }`}
+      >
+        <FilmStrip />
+      </div>
+
+      {/* Bottom message */}
+      <div
+        className={`text-center z-10 mt-8 px-4 transition-all duration-700 delay-500 ${
+          showFilm ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <p className="text-primary font-display text-xl md:text-2xl italic">
+          Can't wait to make more memories with you! 💕
+        </p>
       </div>
 
       {/* Bottom decoration */}
-      <div className="absolute bottom-8 text-center">
+      <div className="mt-auto pt-8 text-center">
         <p className="text-muted-foreground/60 text-sm">
           Made with 💖 just for you
         </p>
