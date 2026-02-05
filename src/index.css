@@ -225,6 +225,16 @@ All colors MUST be HSL.
   animation: celebration 0.6s ease-out forwards;
 }
 
+/* Scrollbar hide utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Gradient backgrounds */
 .bg-valentine-gradient {
   background: linear-gradient(

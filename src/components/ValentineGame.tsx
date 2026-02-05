@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import CelebrationScreen from "./CelebrationScreen";
 
@@ -6,7 +6,9 @@ const ValentineGame = () => {
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
   const [noPosition, setNoPosition] = useState({ x: 0, y: 0 });
+  const [isRunning, setIsRunning] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const noButtonRef = useRef<HTMLButtonElement>(null);
 
   const yesButtonSize = Math.min(1 + noCount * 0.2, 2.5);
 
@@ -21,6 +23,8 @@ const ValentineGame = () => {
     "Think again! 💭",
     "Last chance! 💕",
     "You're breaking my heart! 💔",
+    "Okay fine... jk! 😜",
+    "Catch me if you can! 🏃‍♀️",
   ];
 
   const getNoButtonText = () => {
@@ -29,19 +33,34 @@ const ValentineGame = () => {
 
   const handleNoHover = () => {
     if (!containerRef.current) return;
-    
+
+    setIsRunning(true);
+
     const container = containerRef.current.getBoundingClientRect();
-    const buttonWidth = 120;
-    const buttonHeight = 48;
-    
-    const maxX = container.width - buttonWidth - 20;
-    const maxY = container.height - buttonHeight - 20;
-    
-    const newX = Math.random() * maxX;
-    const newY = Math.random() * maxY;
-    
+    const buttonWidth = 140;
+    const buttonHeight = 50;
+
+    // Get current position
+    const currentX = noPosition.x || container.width / 2;
+    const currentY = noPosition.y || 0;
+
+    // Calculate random jump distance (more dramatic)
+    const jumpX = (Math.random() - 0.5) * container.width * 0.8;
+    const jumpY = (Math.random() - 0.5) * container.height * 0.6;
+
+    // Calculate new position with bounds
+    let newX = currentX + jumpX;
+    let newY = currentY + jumpY;
+
+    // Keep within bounds
+    newX = Math.max(20, Math.min(newX, container.width - buttonWidth - 20));
+    newY = Math.max(-100, Math.min(newY, container.height - buttonHeight + 50));
+
     setNoPosition({ x: newX, y: newY });
     setNoCount((prev) => prev + 1);
+
+    // Reset running animation
+    setTimeout(() => setIsRunning(false), 300);
   };
 
   const handleYesClick = () => {
@@ -76,30 +95,34 @@ const ValentineGame = () => {
       </p>
 
       {/* Buttons Container */}
-      <div className="relative w-full max-w-md h-32 flex items-center justify-center">
+      <div className="relative w-full max-w-lg h-48 flex items-center justify-center">
         {/* Yes Button */}
         <Button
           onClick={handleYesClick}
-          className="bg-button-gradient text-primary-foreground font-bold text-xl md:text-2xl px-8 py-6 rounded-full shadow-lg animate-pulse-glow transition-all duration-300 hover:scale-110 z-10"
+          className="bg-button-gradient text-primary-foreground font-bold text-xl md:text-2xl px-10 py-7 rounded-full shadow-xl animate-pulse-glow transition-all duration-300 hover:scale-110 z-20"
           style={{
             transform: `scale(${yesButtonSize})`,
           }}
         >
-          Yes! 💝
+          Yes! 💖
         </Button>
 
         {/* No Button */}
         <Button
+          ref={noButtonRef}
           variant="outline"
           onMouseEnter={handleNoHover}
           onTouchStart={handleNoHover}
-          className={`absolute border-2 border-primary/30 text-muted-foreground font-medium px-6 py-3 rounded-full transition-all duration-200 hover:bg-transparent ${
-            noCount > 0 ? "animate-wiggle" : ""
+          className={`absolute border-2 border-primary/40 text-muted-foreground font-medium px-6 py-3 rounded-full hover:bg-secondary/50 select-none cursor-pointer z-10 ${
+            isRunning ? "scale-90" : "scale-100"
           }`}
           style={{
-            left: noCount === 0 ? "auto" : `${noPosition.x}px`,
-            top: noCount === 0 ? "auto" : `${noPosition.y}px`,
-            marginLeft: noCount === 0 ? "120px" : "0",
+            position: noCount === 0 ? "relative" : "absolute",
+            left: noCount === 0 ? undefined : `${noPosition.x}px`,
+            top: noCount === 0 ? undefined : `${noPosition.y}px`,
+            marginLeft: noCount === 0 ? "140px" : "0",
+            transition: "all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)",
+            transform: isRunning ? "scale(0.85) rotate(-5deg)" : "scale(1) rotate(0deg)",
           }}
         >
           {getNoButtonText()}
@@ -108,8 +131,10 @@ const ValentineGame = () => {
 
       {/* Hint text */}
       {noCount > 2 && (
-        <p className="mt-8 text-muted-foreground text-sm animate-fade-in">
-          The No button seems to be running away... maybe it's a sign? 😉
+        <p className="mt-12 text-muted-foreground text-sm animate-fade-in text-center">
+          {noCount > 5
+            ? "Give up already! The No button doesn't want to be clicked! 💕"
+            : "The No button seems to be running away... maybe it's a sign? 😉"}
         </p>
       )}
     </div>
